@@ -3,6 +3,7 @@ from app.schema.items import Item, ItemCreate
 from app.schema.users import User, UserCreate
 from app.controllers.items import ItemController
 from app.controllers.users import UserController
+from app.controllers.courses import courseRouter
 from app.database import get_db, engine
 from app.models.items import Item as ItemModel
 
@@ -12,6 +13,7 @@ ItemModel.metadata.create_all(bind=engine)
 app = FastAPI()
 controller = ItemController()
 userController = UserController()
+app.include_router(courseRouter)
 
 @app.get("/")
 def hello():
