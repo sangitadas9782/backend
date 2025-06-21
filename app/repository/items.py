@@ -5,8 +5,6 @@ class ItemRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def get_item(self, item_id: int):
-        return self.db.query(Item).filter(Item.id == item_id).first()
 
     def get_items(self, skip: int = 0, limit: int = 100):
         return self.db.query(Item).offset(skip).limit(limit).all()
