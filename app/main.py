@@ -1,24 +1,24 @@
 from fastapi import FastAPI, Depends
-from app.schema.items import Item, ItemCreate
 from app.schema.users import User, UserCreate
-from app.controllers.items import ItemController
 from app.controllers.users import UserController
 from app.controllers.courses import courseRouter
 from app.controllers.enrolled_courses import enrollmentRouter
-from app.database import get_db, engine
-from app.models.items import Item as ItemModel
-
-# Create tables
-ItemModel.metadata.create_all(bind=engine)
+from app.controllers.transactions import transationRouter
+from app.database import get_db, engine, Base
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
+
 userController = UserController()
 app.include_router(courseRouter)
 app.include_router(enrollmentRouter)
+app.include_router(transationRouter)
 
 @app.get("/")
 def hello():
     return "hello World"
+
 
 ''' this is the user block below '''
 

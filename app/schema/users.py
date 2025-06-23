@@ -8,14 +8,11 @@ class UserBase(BaseModel):
     address: str
     email: str
     is_active: bool   
-
 class UserCreate(UserBase):
     pass
-
 class User(UserBase):
     id: int
     created_at: datetime
     updated_at: datetime
-
     class Config:
         from_attributes = True

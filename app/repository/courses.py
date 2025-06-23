@@ -1,11 +1,9 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
 from app.models.courses import Courses 
-
 class CourseRepository:
     def __init__(self, db: Session):
         self.db = db
-
     def get_by_id(self, course_id: int) -> Courses | None:
         """Get a course by its ID"""
         return self.db.query(Courses).filter(Courses.id == course_id).first()
@@ -47,12 +45,10 @@ class CourseRepository:
         """Delete a course (soft delete by setting is_active=False)"""
         course = self.get_by_id(course_id)
         if not course:
-            return False
-        
+            return False    
         course.is_active = False
         self.db.commit()
         return True
-
     def search_by_name(self, name: str) -> list[Courses]:
         """Search courses by name (case-insensitive partial match)"""
         return self.db.query(Courses).filter(
