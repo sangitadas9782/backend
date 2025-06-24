@@ -5,23 +5,23 @@ from app.controllers.courses import courseRouter
 from app.controllers.enrolled_courses import enrollmentRouter
 from app.controllers.transactions import transationRouter
 from app.database import get_db, engine, Base
+from app.controllers.tasks import router as taskRouter
+from app.models import tasks 
+from app.controllers import admin
 
 app = FastAPI()
-
 Base.metadata.create_all(bind=engine)
 
 userController = UserController()
 app.include_router(courseRouter)
 app.include_router(enrollmentRouter)
 app.include_router(transationRouter)
+app.include_router(taskRouter)
+app.include_router(admin.router)
 
-@app.get("/")
-def hello():
-    return "hello World"
-
-
-''' this is the user block below '''
-
+# @app.get("/")
+# def hello():
+#     return "hello World"
 @app.post("/users/", response_model=User)
 def create_user(user: UserCreate, db=Depends(get_db)):
     return userController.create_user(user, db)

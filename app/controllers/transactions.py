@@ -8,7 +8,6 @@ transationRouter = APIRouter(
     prefix="/transactions",
     tags=["transactions"],
 )
-
 @transationRouter.post("/", response_model=TransactionResponse, status_code=status.HTTP_201_CREATED)
 def create_transaction(
     transaction: TransactionCreate,
@@ -22,7 +21,6 @@ def create_transaction(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e)
         )
-
 @transationRouter.get("/user/{user_email}", response_model=list[TransactionResponse])
 def get_user_transactions(
     user_email: str,
@@ -45,5 +43,3 @@ def update_status(
             detail="Transaction not found"
         )
     return transaction
-
- 
